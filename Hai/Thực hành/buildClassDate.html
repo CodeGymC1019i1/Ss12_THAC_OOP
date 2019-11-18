@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buid class date</title>
+</head>
+<body>
+<script>
+    let MyDate = function (day, month, year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+
+        this.getDay = function () {
+            return (this.day);
+        }
+        this.getMonth = function () {
+            return (this.month);
+        }
+        this.getYear = function () {
+            return (this.year);
+        }
+
+        this.setDate = function (day, month, year) {
+            this.day = day;
+            this.month = month;
+            this.year = year;
+        }
+        this.setDay = function (day) {
+            this.day = day;
+            return day;
+        }
+        this.setMonth = function (month) {
+            this.month = month;
+            return month;
+        }
+        this.setYear = function (year) {
+            this.year = year;
+            return year;
+        }
+        
+        this.toString = function () {
+            let stringDate = '';
+            if (this.day < 10)
+                stringDate += '0' + this.day + '/';
+            else
+                stringDate += this.day + '/';
+            if (this.month < 10)
+                stringDate += '0' + this.month + '/';
+            else stringDate += this.month + '/';
+            stringDate += this.year;
+            return stringDate;
+        }
+    }
+
+    let date = new MyDate(2, 2, 2007);
+    let day = date.getDay();
+    let month = date.getMonth();
+    let year = date.getYear();
+    alert(day + "/" + month + "/" + year);
+
+    // day = date.setDay(6);
+    // month = date.setMonth(6);
+    // year = date.setYear(1996);
+
+    date.setDate(6, 6, 1996);
+    alert(date.day + "/" + date.month + "/" + date.year);
+    alert(date.toString());
+</script>
+</body>
+</html>

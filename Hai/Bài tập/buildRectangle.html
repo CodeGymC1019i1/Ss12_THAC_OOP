@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Rectangle</title>
+</head>
+<body>
+<p id="display"></p>
+<canvas  id="myCanvas" width="1368px" height="768px" style="border:1px solid #d3d3d3;"></canvas>
+<script>
+    let MyRectangle = function (Edge1, Edge2) {
+        this.Edge1 = Edge1;
+        this.Edge2 = Edge2;
+        this.getArea = function () {
+            return this.Edge1 * this.Edge2;
+        }
+        this.getPerimeter = function () {
+            return 2 * (this.Edge1 + this.Edge2);
+        }
+        this.setEdge = function (setEdge1, setEdge2) {
+            this.Edge1 = setEdge1;
+            this.Edge2 = setEdge2;
+        }
+        this.displayAreaAndPerimeter = function () {
+            let display = document.getElementById('display');
+            display.innerHTML ='Dien tich hinh chu nhat: ' + this.getArea() +
+                            '<br>Chu vi hinh chu nhat: ' + this.getPerimeter();
+        }
+        this.displayRectangle = function () {
+            let ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.moveTo(100,100);
+            ctx.lineTo(100 + this.Edge2,100);
+            ctx.stroke();
+            ctx.moveTo(100,100);
+            ctx.lineTo(100, 100+ this.Edge1);
+            ctx.stroke();
+            ctx.moveTo(100 + this.Edge2, 100 + this.Edge1);
+            ctx.lineTo(100 + this.Edge2,100);
+            ctx.stroke();
+            ctx.moveTo(100 + this.Edge2, 100 + this.Edge1);
+            ctx.lineTo(100,100 + this.Edge1);
+            ctx.stroke();
+        }
+    }
+
+    let rectangle = new MyRectangle(50, 100);
+    rectangle.setEdge(100,150);
+    rectangle.displayAreaAndPerimeter();
+    rectangle.displayRectangle();
+</script>
+</body>
+</html>

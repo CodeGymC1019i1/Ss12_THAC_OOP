@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Mobile</title>
+</head>
+<body>
+<script>
+    let MyMobile = function (name) {
+        this.name = name;
+        this.BatteryStatus = 50;
+        this.DraftingMessage = '';
+        this.Inbox = [];
+        this.Outbox = [];
+        this.MobileStatus = 'On';
+        this.turnOnMobile = function () {
+            this.MobileStatus = 'On';
+        }
+        this.turnOffMobile = function () {
+            this.MobileStatus = 'Off';
+        }
+        this.charge = function () {
+            while (this.BatteryStatus < 100)
+                this.BatteryStatus += 1;
+        }
+        this.texting = function (content) {
+            if (this.checkStatus()) {
+                this.lossBattery();
+                this.DraftingMessage += content;
+            }
+        }
+        this.receiveMessage = function (Sender, ContentMessage) {
+            if (this.checkStatus()) {
+                this.lossBattery();
+                this.Inbox.push(ContentMessage);
+                alert("Bạn có tin nhắn mới từ " + Sender.name);
+            }
+        }
+        this.sendMessage = function (Receiver) {
+            if (this.checkStatus()) {
+                this.lossBattery();
+                this.Outbox.push(this.DraftingMessage);
+                Receiver.receiveMessage(this, this.DraftingMessage);
+                this.DraftingMessage = '';
+            }
+        }
+        this.seeInbox = function () {
+            if (this.checkStatus()) {
+                this.lossBattery();
+                document.write('Inbox: ' + this.Inbox);
+            }
+        }
+        this.seeOutbox = function () {
+            if (this.checkStatus()) {
+                this.lossBattery();
+                document.write('Outbox: ' + this.Outbox);
+            }
+        }
+        this.lossBattery = function () {
+            if (this.BatteryStatus > 0)
+                this.BatteryStatus -= 1;
+        }
+        this.checkStatus = function () {
+            if (this.MobileStatus == 'Off')
+                return false;
+            return true;
+        }
+    }
+
+    let Nokia = new MyMobile('Nokia');
+    let Iphone = new MyMobile('Iphone');
+    Nokia.texting('Anh An rồi sẽ ổn thôi.')
+    Nokia.sendMessage(Iphone);
+    Iphone.seeInbox();
+</script>
+</body>
+</html>

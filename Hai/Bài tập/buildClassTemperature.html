@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Temperature</title>
+</head>
+<body>
+<script>
+    let MyTemperature = function (cencius) {
+        this.temperature = cencius;
+        this.convertCToF = function () {
+            return this.temperature * 1.8 + 32;
+        }
+        this.convertCToK = function () {
+            return this.temperature + 273.15;
+        }
+    }
+
+    let temp = new MyTemperature(25);
+    alert('Do F: ' + temp.convertCToF());
+    alert('Do K ' + temp.convertCToK());
+</script>
+</body>
+</html>

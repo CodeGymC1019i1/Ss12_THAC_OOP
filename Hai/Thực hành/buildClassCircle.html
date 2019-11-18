@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Build Class Circle</title>
+</head>
+<body>
+<script>
+    let MyCircle = function(radius) {
+        //thuoc tinh
+        this.radius = radius;
+        //phuong thuc
+        this.getRadius = function () {
+            return this.radius;
+        }
+        this.getArea = function () {
+            return this.radius * this.radius * Math.PI;
+        }
+    };
+
+    let circle = new MyCircle(10);
+    alert('Ban kinh hinh tron: ' + circle.getRadius());
+    alert('Dien tich hinh tron: ' + circle.getArea());
+</script>
+</body>
+</html>
