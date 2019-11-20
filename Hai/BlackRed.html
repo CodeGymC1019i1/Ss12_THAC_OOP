@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Black Red</title>
+    <style>
+        img {
+            width: 70px;
+            height: 110px;
+        }
+    </style>
+</head>
+<body>
+<p>Điểm người chơi 1: </p><span id="score1">0</span>
+<p>Điểm người chơi 2: </p><span id="score2">0</span>
+<div id="game">
+
+</div>
+<script>
+    let Card = function (name, value) {
+        this.name = name;
+        this.value = value;
+
+    }
+
+    let Player = function () {
+        this.name = name;
+        this.score = 0;
+        this.chooseCard = function () {
+
+        }
+    }
+    let valueCardTurn = [];
+    let turn = true;
+
+    function valuee(string) {
+        switch (string) {
+            case 'A' :
+                return 0;
+            case '2' :
+                return 1;
+            case '3' :
+                return 2;
+            case '4' :
+                return 3;
+            case '5' :
+                return 4;
+            case '6' :
+                return 5;
+            case '7' :
+                return 6;
+            case '8' :
+                return 7;
+            case '9' :
+                return 8;
+            case '1' :
+                return 9;
+            case 'J' :
+                return 10;
+            case 'Q' :
+                return 11;
+            case 'K' :
+                return 12;
+        }
+    }
+
+    let score1 = 0;
+    let score2 = 0;
+
+    function changeTurnAndCheckScore(string) {
+        if (turn) {
+            valueCardTurn[0] = valuee(string.substr(0, 1));
+            turn = false;
+        } else {
+            valueCardTurn[1] = valuee(string.substr(0, 1));
+            turn = true;
+            if (valueCardTurn[0] > valueCardTurn[1])
+                document.getElementById('score1').innerHTML = ++score1;
+            else if (valueCardTurn[0] < valueCardTurn[1])
+                document.getElementById('score2').innerHTML = ++score2;
+            else {
+                document.getElementById('score1').innerHTML = ++score1;
+                document.getElementById('score2').innerHTML = ++score2;
+            }
+            if (score1 > 13)
+                alert('Nguoi choi 1 thang.');
+            else if (score2 > 13)
+                alert('Nguoi choi 2 thang');
+            else if (score1 == score2 && score1 == 13)
+                alert('Hòa');
+        }
+    }
+
+    function changeCard(position) {
+        if (document.getElementById(position).src != "card_deck/cardback.jpg") {
+            document.getElementById(position).src = "card_deck/" + arrayTableCard[position.substr(0, 1)][position.substr(1, 1)];
+            changeTurnAndCheckScore(arrayTableCard[position.substr(0, 1)][position.substr(1, 1)]);
+        }
+    }
+
+    let arrayTableCard = [];
+
+    function suffleCard(arr) {
+        let desk = arr;
+        for (let i = 0; i < 4; i++) {
+            arrayTableCard[i] = [];
+            for (let j = 0; j < 13; j++) {
+                let temp = Math.floor(Math.random() * desk.length);
+                arrayTableCard[i][j] = desk[temp];
+                desk.splice(temp, 1);
+            }
+        }
+    }
+
+    function createCard() {
+        let arrayCard = [];
+
+        for (let i = 0; i < 4; i++)
+            for (let j = 0; j < 13; j++)
+                arrayCard.push(valueCard[j] + qualityCard[i] + '.jpg');
+        suffleCard(arrayCard);
+    }
+
+    function drawTable() {
+        let drawTable = '<table>';
+        for (let i = 0; i < 4; i++) {
+            drawTable += "<tr>"
+            for (let j = 0; j < 13; j++) {
+                drawTable += "<td><img src='card_deck/cardback.jpg' id='" + i + "" + j + "' onclick='changeCard(this.id)'></td>";
+            }
+            drawTable += "</tr><br></table>";
+        }
+        drawTable += "</table>";
+        document.getElementById('game').innerHTML = drawTable;
+    }
+
+    let valueCard = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    let qualityCard = ['C', 'D', 'H', 'S'];
+    drawTable();
+    createCard();
+
+</script>
+</body>
+</html>
